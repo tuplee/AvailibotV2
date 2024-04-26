@@ -2,12 +2,10 @@ import discord
 import requests
 
 intents= discord.Intents.all()
-#intents.message = True
 
 client = discord.Client(intents=intents)
 
-# API URL of your Flask app
-API_URL = 'https://doggthebountyhunter.pythonanywhere.com/get-rdp-status'
+API_URL = 'https://x.pythonanywhere.com/retrieve_RDPStatus'
 
 @client.event
 async def on_ready():
@@ -25,5 +23,4 @@ async def on_message(message):
         else:
             await message.channel.send('RDP connection is not active.')
 
-# Replace 'YOUR_DISCORD_BOT_TOKEN' with your actual Discord bot token
-client.run('MTIzMzE0OTU3ODM0MjMwNTgzMg.GsY44F.Cu0Dwv2FRdAGLNQ9hAmS6GCEvqgEIeBi_IkjhI')
+client.run('BotTokenGoesHere')
