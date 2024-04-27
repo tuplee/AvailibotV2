@@ -12,7 +12,7 @@ def check_rdp_connections():
     return rdp_connections
 
 # Flask app URL
-FLASK_API_URL = 'https://doggthebountyhunter.pythonanywhere.com/update-rdp-status'
+FLASK_API_URL = ''
 
 # Main loop
 while True:
