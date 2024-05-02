@@ -6,6 +6,7 @@ import json
 import datetime
 import requests
 import winreg
+import timezone
 
 # Discord bot token and webhook URL
 TOKEN = 'BOT_TOKEN_GOES_HERE'
