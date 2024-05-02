@@ -1,9 +1,17 @@
 Still a stupid name, still a useful service.
 
-A work in progress tool for relaying the RDP status of particularly powerful lab computers to an API on PythonAnywhere so that a Discord bot can inform students if the RDP connection is available or not.
+Use !rdpstatus to request a live update of the workstations' statuses.
 
-Ran into a networking issue where the wired network firewall is more strict than the wireless network firewall. At least I am guessing it's the firewall. I can curl the API subdomain just fine on wireless connections (eg my laptop) but can only curl the main domain of my PythonAnywhere webpage on the lab workstation. 
+Using a Discord webhook, server users can request a live status of the lab workstation RDP connections, including if the workstation is already logged in locally in an effot to prevent a session takeover.
 
-The solution is to build an intermediate device that communicates with the API over wireless so I can get the RDP connection stats out of the LAN. This is literally the PiBox idea I have in one of my repos (aka a JumpBox/JumpServer you see in embedded systems, aka a Bastion Host, except mine knows how to read.. You ever see Never Ending Story?).
+The code in local_rdp_check.py needs to be turned into a service so that it can be run in the background when a workstation is logged off. 
 
-Until someone gives me a job I will forego building the Pi with a cell hat and focus on using SSH to tunnel into the LAN for rdp connection extraction extravaganza.
+Efforts with pywin32 and NSSM have so far been unsuccessful, I think due to the lab security setup. 
+
+Pywin32 struggles to install the service, likely because I am missing something in the programming. NSSM can install the service, but py.exe quits and leaves the bot hanging. You can see the errors in Event Viewer. I'd like to think it is not my fault but you know how it goes.. it probably is the dev misunderstanding something. 
+
+So going forward:
+
+* Convert local_rdp_check.py into a service or application that can run in the background
+
+* Create a manager that can update the service for code changes (no idea how but this would be a very helpful feature of the app)
