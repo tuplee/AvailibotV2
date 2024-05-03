@@ -13,15 +13,6 @@ Pywin32 struggles to install the service, likely because I am missing something 
 So going forward:
 
 Major Efforts:
-* Convert local_rdp_check.py into a service or application that can run in the background
+* Convert local_rdp_check.py into a service or application that can run in the background - let's try PyInstaller, there are dependencies don't forget
 
-* Create a manager that can update the service for code changes
-
-Minor Efforts:
-* Refactor code for readability (that means useful commments as well)
-
-* Discord bot needs to clean up it's messages in the chat - when user issues command, delete the previous bot status updates first, then print new updates
-
-* The message wording can be improved
-
-* Can the updates be displayed side-by-side in Discord or even in one single message? Multiple updates take up a lot of channel real-estate
+* Create a manager that can update the service for code changes - Chocolatey or Scoop or..?
