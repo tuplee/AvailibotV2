@@ -15,6 +15,7 @@ WEBHOOK_URL = 'WEBHOOK_URL_GOES_HERE'
 intents = discord.Intents.all()
 client = discord.Client(intents=intents)
 
+
 # Function to check RDP connection status
 def check_rdp_connections():
     rdp_connections = False
@@ -23,6 +24,7 @@ def check_rdp_connections():
             rdp_connections = True
             break
     return rdp_connections
+
 
 # Function to check if RDP is enabled
 def check_rdp_enabled():
@@ -34,6 +36,7 @@ def check_rdp_enabled():
     except FileNotFoundError:
         return False  # Return False if the registry key is not found
 
+
 # Function to check if workstation is logged in
 def is_logged_in():
     # Check if there is a user logged in to the console session
@@ -42,6 +45,7 @@ def is_logged_in():
         return True
     else:
         return False
+
 
 # Function to send RDP status update to Discord channel
 def send_status_update():
@@ -60,19 +64,15 @@ def send_status_update():
         "embeds": [
             {
                 "title": "RDP Status Update",
-                "description": f"A remote session is currently {'happening' if rdp_status else 'not happening'}. RDP connections are {'allowed' if rdp_enabled else 'not allowed'}.",
+                "description": f"A remote session is currently "
+                f"{'in progress' if rdp_status else 'available' if logged_in "
+                f"else 'available. But please, don't connect. A user is "
+                f"logged in'}. RDP connections are "
+                f"{'allowed' if rdp_enabled else 'not allowed'}.",
                 "color": 13632027 if rdp_status else 16711680,
                 "fields": [
-                    {
-                        "name": "Workstation In Use",
-                        "value": f"{'Yes' if logged_in else 'No'}",
-                        "inline": True
-                    },
-                    {
-                        "name": "Workstation",
-                        "value": f"{getpass.getuser()}",
-                        "inline": True
-                    }
+                    {"name": "Workstation In Use", "value": f"{'Yes' if logged_in else 'No'}", "inline": True},
+                    {"name": "Workstation", "value": f"{getpass.getuser()}", "inline": True}
                 ],
                 "timestamp": datetime.now(timezone.utc).isoformat()
             }
@@ -81,7 +81,8 @@ def send_status_update():
     headers = {
         "Content-Type": "application/json"
     }
-    response = requests.post(WEBHOOK_URL, data=json.dumps(data), headers=headers)
+    response = requests.post(WEBHOOK_URL, data=json.dumps(data), headers=headers, verify=True) #Verify the SSL cert
+
 
 # Bot command to check RDP status and send update to Discord channel
 @client.event
